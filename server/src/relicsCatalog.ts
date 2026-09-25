@@ -1,13 +1,13 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { resolveExportDir } from "./exportDir.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // Same shared-across-subprojects Public Export location as modsCatalog.ts/
-// arcanesCatalog.ts.
-const EXPORT_DIR =
-  process.env.OPENTOOLS_PUBLIC_EXPORT_DIR ??
-  path.join(__dirname, "..", "..", "..", "database_scrapes", "warframe-public-export-plus-senpai");
+// arcanesCatalog.ts - see exportDir.ts for why this is a search, not a
+// fixed relative path.
+const EXPORT_DIR = resolveExportDir(__dirname);
 
 // ExportRelics.json (3089 entries, confirmed 2026-09-24) - each real
 // relic (era + name, e.g. "Lith V7") appears as up to 4 SEPARATE entries,

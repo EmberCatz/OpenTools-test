@@ -1,14 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { resolveExportDir } from "./exportDir.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-// database_scrapes/ lives at the OPENWF _ Modding project root, shared
-// across subprojects (see ../../CLAUDE.md's directory map) - not copied
-// into this repo. Overridable for tests/other environments.
-const EXPORT_DIR =
-  process.env.OPENTOOLS_PUBLIC_EXPORT_DIR ??
-  path.join(__dirname, "..", "..", "..", "database_scrapes", "warframe-public-export-plus-senpai");
+// database_scrapes/ ships bundled in this repo (see the folder itself) -
+// see exportDir.ts for why this is a search, not a fixed relative path.
+const EXPORT_DIR = resolveExportDir(__dirname);
 
 // Maps our confirmed equipment categories (see DEVLOG.md's 2026-09-21
 // field-shape entries) to the Public Export file that defines them, and

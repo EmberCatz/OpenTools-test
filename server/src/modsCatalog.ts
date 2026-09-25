@@ -2,12 +2,12 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { resolvePolarity } from "./polarityIcons.js";
+import { resolveExportDir } from "./exportDir.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-// Same shared-across-subprojects Public Export location as itemNames.ts.
-const EXPORT_DIR =
-  process.env.OPENTOOLS_PUBLIC_EXPORT_DIR ??
-  path.join(__dirname, "..", "..", "..", "database_scrapes", "warframe-public-export-plus-senpai");
+// Same shared-across-subprojects Public Export location as itemNames.ts
+// - see exportDir.ts for why this is a search, not a fixed relative path.
+const EXPORT_DIR = resolveExportDir(__dirname);
 
 // ExportUpgrades.json is MODS ONLY (1601 entries, confirmed 2026-09-21) -
 // Arcanes live in a separate ExportArcanes.json with no productCategory-

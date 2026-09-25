@@ -75,6 +75,12 @@ leaves your machine.
   gitignored — your synced data never leaves your machine or gets
   committed).
 - `app/` — Tauri v2 + React + TypeScript + Vite.
+- `database_scrapes/` — a small (12MB) offline slice of Warframe's
+  public data export (item names, icons, mods, relics, etc.) that the
+  backend reads at startup for item names/icons/catalog data. Bundled
+  directly so there's no extra setup step — you don't need to download
+  or configure anything for this. If you ever move it elsewhere, point
+  `OPENTOOLS_PUBLIC_EXPORT_DIR` at the new location.
 
 ## Reporting issues
 

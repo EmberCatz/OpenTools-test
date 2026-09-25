@@ -51,6 +51,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { getCatalog } from "./itemNames.js";
+import { resolveExportDir } from "./exportDir.js";
 
 const WFCD_IMG_BASE = "https://cdn.warframestat.us/img/";
 const COMPONENTS_URL = "https://raw.githubusercontent.com/wfcd/warframe-items/master/data/json/Components.json";
@@ -96,12 +97,10 @@ export function getManufacturingComponentsStatus(): { loaded: boolean; count: nu
 export const manufacturingComponentsReadyPromise = componentsLoadPromise;
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-// Mirrors itemNames.ts's EXPORT_DIR pattern (each file that reads Public
-// Export duplicates this rather than sharing an import - see that file's
-// header comment / modsCatalog.ts for the established convention).
-const EXPORT_DIR =
-  process.env.OPENTOOLS_PUBLIC_EXPORT_DIR ??
-  path.join(__dirname, "..", "..", "..", "database_scrapes", "warframe-public-export-plus-senpai");
+// Mirrors itemNames.ts's EXPORT_DIR - see exportDir.ts for why this is
+// a shared search helper instead of each file duplicating a fixed
+// relative path.
+const EXPORT_DIR = resolveExportDir(__dirname);
 
 interface RecipeEntry {
   resultType?: string;
