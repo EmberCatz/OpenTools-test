@@ -1,0 +1,1 @@
+Icons: https://wiki.warframe.com/w/Text_Icons

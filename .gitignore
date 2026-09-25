@@ -1,0 +1,24 @@
+# Warframe-Exporter-CLI's default output dir when --output-path isn't
+# given - not meant to be committed; server/data/icon-cache/ is the real,
+# intentional output location (see server/src/localIcons.ts).
+/Extracted/
+
+# Dependencies / build output (also covered by nested .gitignores, kept
+# here too as a safety net)
+node_modules/
+dist/
+dist-ssr/
+/app/src-tauri/target/
+/app/src-tauri/gen/schemas/
+
+# Local runtime data - the synced SQLite database and extracted icon
+# cache are per-install, never shared
+/server/data/
+*.db
+*.db-shm
+*.db-wal
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.log

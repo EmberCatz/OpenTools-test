@@ -1,0 +1,1832 @@
+/* Same Warframe-inspired palette/font convention as OpenWF Mod Manager
+   (apps/desktop/src/styles.css) - warm amber accent on near-black,
+   condensed HUD font for headings/tabs. Kept consistent across this
+   user's local companion apps rather than picking a new look here.
+   Original, not extracted game assets. */
+:root {
+  color-scheme: dark;
+  --bg: #101214;
+  --panel: #191c20;
+  --panel-alt: #23272e;
+  --text: #e9e4d8;
+  --muted: #9c968a;
+  --accent: #e0a339;
+  --accent-hover: #f2bd5c;
+  --border: #2b2f35;
+  --ok: #6fbf73;
+  --off: #6a6f76;
+  --danger: #d9534f;
+  /* Approximated from Warframe's named palette colors (Void Cyan, Eerie
+     Teal, Liquid Silver, White Ceramic) - no exported hex table for
+     these exists in Public Export/WFCD (checked, no match), so these
+     are a best-effort visual match, not a sourced/confirmed value like
+     this file's other colors. Adjust freely if the shade is off. */
+  --incarnon-cyan: #22d6cf;
+  --incarnon-teal: #1a4d4a;
+  --incarnon-silver: #c4cdd5;
+  --incarnon-ceramic: #ede6da;
+  /* Helminth border/glow palette, per the user's own color naming
+     (2026-09-21) - same approximation caveat as the Incarnon colors
+     above: no exported hex table for these names exists, so these are
+     a best-effort match, not a sourced value. Body/Highlight colors
+     make up the border gradient; Energy colors only appear on hover. */
+  --helminth-body-purple: #5a3a5e;
+  --helminth-body-maroon: #4d1f24;
+  --helminth-highlight-pink: #e8a7a0;
+  --helminth-highlight-tan: #cdb48f;
+  --helminth-energy-yellow: #c9c93a;
+  --helminth-energy-green: #5fb53d;
+  /* Kuva Lich weapon-card theme (2026-09-21), per the user's own naming
+     of Industrial Scrap (body) / Kuva (accent) / progenitor-Warframe
+     energy - same approximation caveat as the other themed palettes
+     above (no exported hex table for these descriptive names exists).
+     The real in-game energy color varies per progenitor Warframe, which
+     this app has no way to know, so the hover glow uses the described
+     "default" red/orange rather than a per-account value. */
+  --kuva-charcoal: #2a2a26;
+  --kuva-slate: #565f5c;
+  --kuva-army-green: #4b5320;
+  --kuva-crimson: #7c1f1f;
+  --kuva-copper: #a3672f;
+  --kuva-energy-red: #dc3c14;
+  --kuva-energy-orange: #ff8c28;
+  /* Sisters of Parvos weapon-card theme (2026-09-21), per the user's own
+     naming of Corporate Carbon (body) / Granum Gold (accent) / energy -
+     same approximation caveat as above. */
+  --sister-black: #14161a;
+  --sister-navy: #1b2740;
+  --sister-white: #e9eaee;
+  --sister-rosegold: #b76e79;
+  --sister-champagne: #e6c78c;
+  --sister-energy-cyan: #00e5ff;
+  --sister-energy-blue: #2979ff;
+  /* Prime weapon/Warframe theme (2026-09-21), per the user's own naming
+     of Body (porcelain white/obsidian black) / Accent (Orokin gold) /
+     Energy (champagne gold/heavenly blue) - same approximation caveat as
+     the other themed palettes above. Applies across every category
+     (Warframes AND weapons AND Archwing gear), not just weapons - see
+     itemThemes.ts's isPrimeItem(). */
+  --prime-beige: #d8b888;
+  --prime-porcelain: #f2ede0;
+  --prime-gold: #d8b23a;
+  --prime-energy-champagne: #f0dfa8;
+  --prime-energy-blue: #a8d8f0;
+  /* Coda weapon theme (2026-09-21, Infested "Techrot" strain), per the
+     user's own naming of Body (neon pink/mutated magenta/moldy purple/
+     synth-flesh) / Accent (bruised yellow/gangrenous green) / Energy
+     (hot pink/radioactive lavender). */
+  --coda-pink: #ff2fa0;
+  --coda-magenta: #a8258f;
+  --coda-purple: #4a2e52;
+  --coda-flesh: #8a7a6e;
+  --coda-accent-yellow: #c9b23a;
+  --coda-energy-pink: #ff1493;
+  --coda-energy-lavender: #b19cd9;
+  /* Prisma weapon theme (2026-09-21, Baro Ki'Teer/Void-forged), per the
+     user's own naming of Body (iridescent indigo/violet/midnight blue) /
+     Accent (aquamarine/chrome silver) / Energy (nebula green/diamond
+     white). */
+  --prisma-indigo: #2e1a6b;
+  --prisma-violet: #5b2a8c;
+  --prisma-midnight: #0d1b3e;
+  --prisma-aquamarine: #4fd8c4;
+  --prisma-silver: #c8ced4;
+  --prisma-energy-green: #39ff8f;
+  --prisma-energy-white: #f5fbff;
+  /* Wraith weapon theme (2026-09-21, Grineer death-squad variants), per
+     the user's own naming of Body (matte blood red/burnt steel) / Energy
+     (glowing orange/red). */
+  --wraith-blood: #6b0f0f;
+  --wraith-steel: #2b2b28;
+  --wraith-energy-orange: #ff6a00;
+  --wraith-energy-red: #ff2200;
+  /* Vandal weapon theme (2026-09-21, Corpus field-test variants), per the
+     user's own naming of Body (dark metallic blue/stark silver) / Energy
+     (bright neon green). */
+  --vandal-blue: #1c3550;
+  --vandal-silver: #c9d3da;
+  --vandal-energy-green: #39ff14;
+  /* Archwing default theme (2026-09-21) - this app's own pick, not a
+     user-supplied spec (the user asked for "a color profile variation
+     that harmonizes with the existing color schemes," leaving the exact
+     choice to us): a deep-space palette distinct from but stylistically
+     consistent with Prisma's void-crystal look above. Only applies to a
+     plain Archwing item with no other theme match (see
+     itemThemes.ts's isArchwingCategory() and its precedence-order
+     comment in App.tsx's themeClassesFor()). */
+  --archwing-void: #05060d;
+  --archwing-navy: #10152b;
+  --archwing-steel: #5a6478;
+  --archwing-silverblue: #8fd9ff;
+  --archwing-energy-blue: #4da6ff;
+  --archwing-energy-violet: #8a5cff;
+  /* Normal (untitled) weapon/Warframe theme (2026-09-21) - a solid,
+     standard blue border replacing the previous plain --border gray for
+     anything that doesn't match any other theme, per the user's explicit
+     request ("no gradients" - unlike every other theme above, this is a
+     single flat color, not a multi-stop gradient). */
+  --normal-blue: #3d7dff;
+  --normal-energy-blue: #7ab8ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* scrollbar-gutter: stable reserves the scrollbar's own width up front
+   (Chromium/WebView2 - the engine Tauri uses on Windows - supports this)
+   instead of only allocating it once content actually overflows. Without
+   this, `.app`'s `margin: 0 auto` centering recalculates against a
+   narrower viewport the instant a scrollbar appears (e.g. switching to a
+   taller tab), visibly shifting all the centered content left - reported
+   as distracting by the user 2026-09-24. Reserving the space
+   unconditionally means the available width never changes, scrollbar or
+   not. */
+html {
+  scrollbar-gutter: stable;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Rajdhani", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-weight: 500;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem 3rem;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1rem;
+}
+
+@font-face {
+  font-family: "Exwayer";
+  src: url("/fonts/Exwayer-X3eqa.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-family: "Exwayer", "League Gothic", "Rajdhani", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #fff;
+}
+
+.tab-bar {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.tab {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: var(--muted);
+  font-family: "Roboto", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+}
+
+.tab:hover {
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.tab-active,
+.tab-active:hover {
+  color: var(--accent);
+  background: var(--panel);
+  border-color: var(--border);
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.settings-row > span {
+  font-weight: 600;
+  min-width: 5rem;
+}
+
+.settings-row .sub-tab-bar {
+  margin-bottom: 0;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.25rem 1.5rem;
+}
+
+.panel h2 {
+  margin: 0 0 0.75rem;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text);
+}
+
+.panel-error {
+  border-color: #7a3b3b;
+}
+
+.hint {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0.35rem 0;
+}
+
+.stat-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.stat-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--panel-alt);
+}
+
+.stat-list li:last-child {
+  border-bottom: none;
+}
+
+.stat-value {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.dot {
+  display: inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.dot-ok {
+  background: var(--ok);
+}
+
+.dot-off {
+  background: var(--off);
+}
+
+/* Collection grid */
+
+.sub-tab-bar {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.sub-tab-bar-nested {
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+.sub-tab {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--muted);
+  font-family: "Roboto", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  cursor: pointer;
+}
+
+.sub-tab:hover {
+  color: var(--text);
+}
+
+.sub-tab-active,
+.sub-tab-active:hover {
+  color: var(--accent);
+  background: var(--panel);
+  border-color: var(--accent);
+}
+
+/* Visual separator between the equipment tabs and Mods/Arcanes (2026-09-24)
+   - those two are a different data source/grid shape from everything to
+   their left, see COLLECTION_SUB_TAB_DIVIDER_BEFORE's comment. */
+.sub-tab-divider {
+  color: var(--border);
+  font-size: 0.9rem;
+  align-self: center;
+  padding: 0 0.15rem;
+  user-select: none;
+}
+
+.collection-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.filter-bar-left,
+.filter-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.filter-search-input {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-family: "Roboto", sans-serif;
+  font-size: 0.9rem;
+  padding: 0.35rem 0.6rem;
+  min-width: 200px;
+}
+
+.filter-search-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* Drop Rates search row: mode buttons + search input share the left
+   side, with the input stretching to meet "Refresh drop data" on the
+   right (2026-09-24). */
+.drop-filter-bar-left {
+  flex: 1;
+}
+
+.filter-search-input-grow {
+  flex: 1;
+  min-width: 160px;
+}
+
+.filter-select-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.filter-select {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-family: "Roboto", sans-serif;
+  font-size: 0.9rem;
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.collection-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle input {
+  accent-color: var(--accent);
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Drop Rates tab (2026-09-24) - a plain data table, first one in this
+   app; every other tab so far is card-grid based. Kept simple
+   (no fixed layout / column resizing) since the content itself (item
+   names, place strings) varies too much in length for that to matter. */
+.drop-results-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.drop-results-table th,
+.drop-results-table td {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.drop-results-table th {
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.drop-results-table tbody tr:hover {
+  background: var(--panel-alt);
+}
+
+/* "Where do I get this" hover target on a relic reward row (2026-09-25,
+   switched from a click <button> to a plain inline <span> now that the
+   trigger is mouseover, not a click) - just a hover highlight on the
+   item name itself so the row still reads as interactive. */
+.reward-item-hover-trigger {
+  display: inline-block;
+  cursor: default;
+}
+
+.reward-item-hover-trigger:hover .relic-reward-item-cell {
+  color: var(--accent-hover);
+}
+
+/* Floating "where do I get this" panel for a relic reward row
+   (2026-09-25) - deliberately NOT a PopupWindow/.popup-backdrop (see
+   RewardDropSourcesHoverTrigger's own header comment for why: avoiding a
+   second dim layer stacked on the relic popup's own). Positioned via
+   inline left/top (dropSourcesPanelPosition() in App.tsx) to the relic
+   popup's left edge - max-height + scroll instead of a fixed height
+   since a real item's source count varies (unlike mod-preview-popup's
+   fixed image box below, which always renders one image at one size). */
+.drop-sources-hover-panel {
+  position: fixed;
+  z-index: 150;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  padding: 0.75rem;
+  max-height: 70vh;
+  overflow-y: auto;
+  /* Stops scroll chaining (2026-09-25, per the user's ask): without this,
+     once the wheel scrolls this panel's own content to its top/bottom
+     edge, the browser's default behavior hands the REST of that scroll
+     gesture to whatever scrollable ancestor is next - which for this
+     fixed, backdrop-less panel is the Collection grid sitting behind it,
+     so scrolling past the panel's own content used to also scroll the
+     page underneath the cursor. `contain` keeps the scroll (and its
+     rubber-band overscroll effect) inside this panel instead. */
+  overscroll-behavior: contain;
+}
+
+.drop-sources-hover-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.category-section {
+  margin-bottom: 1.75rem;
+}
+
+.category-section h2 {
+  margin: 0 0 0.75rem;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.4rem;
+}
+
+.item-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 0.75rem;
+}
+
+.item-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.6rem 0.5rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.3rem;
+  position: relative;
+}
+
+/* Greyed out per the user's spec: unowned items stay visible (not
+   hidden) but visually recede - grayscale + reduced opacity, not just
+   opacity alone, so it reads as "not yours" rather than "loading".
+   Still used as-is by ModCard (Mods tab), which has no manufacturing
+   row to protect from the whole-element filter/opacity. */
+.item-card-unowned {
+  opacity: 0.45;
+  filter: grayscale(0.9);
+}
+
+/* ItemCard's own unowned state (Collection tab) - same look as
+   item-card-unowned above, but scoped to .item-icon/.item-name only
+   (2026-09-24), matching every OTHER theme's -dim variant (see the
+   themeClassesFor comment). Applying opacity/filter to the whole
+   .item-card like item-card-unowned does would also wash out the
+   .item-manufacturing-row outline colors (red/white/green) sitting in
+   the same element subtree - confirmed via a live render (Ash/Ninja)
+   before this split existed. */
+.item-card-normal-dim .item-icon,
+.item-card-normal-dim .item-icon-placeholder,
+.item-card-normal-dim .item-name {
+  opacity: 0.45;
+  filter: grayscale(0.9);
+}
+
+/* Helminth duplicate tile (2026-09-21; gradient border + hover glow
+   added the same day per follow-up feedback) - a Body/Highlight color
+   gradient border marks it as the Helminth version of the Warframe next
+   to it, using the same transparent-border + two-layer-background
+   technique as the Incarnon gradient (see below) rather than
+   border-image, for the same border-radius reason. The "dim" (not yet
+   subsumed) state deliberately does NOT use item-card-unowned's
+   grayscale filter on the whole card - that would desaturate the border
+   too, and the user specifically wants the color to "still be slightly
+   visible" while dim. Instead: the gradient itself dims via a
+   lower-alpha version of the same colors, while only the icon/name (not
+   the border) get grayed out. */
+.item-card-helminth {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(
+        135deg,
+        var(--helminth-body-purple),
+        var(--helminth-body-maroon),
+        var(--helminth-highlight-pink),
+        var(--helminth-highlight-tan)
+      )
+      border-box;
+}
+
+.item-card-helminth-dim {
+  background:
+    linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--helminth-body-purple) 35%, transparent),
+        color-mix(in srgb, var(--helminth-body-maroon) 35%, transparent),
+        color-mix(in srgb, var(--helminth-highlight-pink) 35%, transparent),
+        color-mix(in srgb, var(--helminth-highlight-tan) 35%, transparent)
+      )
+      border-box;
+}
+
+.item-card-helminth-dim .item-icon,
+.item-card-helminth-dim .item-icon-placeholder,
+.item-card-helminth-dim .item-name {
+  opacity: 0.45;
+  filter: grayscale(0.9);
+}
+
+/* Creepster for the Warframe's own name on the Helminth tile only (not
+   the base ItemCard's name elsewhere in the grid) - per the user's
+   request. Display font, so it stays legible at this size without
+   further size/spacing changes. */
+.item-card-helminth .item-name {
+  font-family: "Creepster", cursive;
+}
+
+/* Hover glow - toned down 2026-09-21 (lower alpha + tighter blur/spread
+   than the original Energy-color pass), then recolored red the same day
+   per follow-up feedback (was Bile Yellow/Toxic Green). Applies in both
+   the subsumed and dim states since it's a hover affordance, not a
+   status indicator. */
+.item-card-helminth:hover,
+.item-card-helminth-dim:hover {
+  box-shadow:
+    0 0 5px 1px rgba(217, 67, 42, 0.25),
+    0 0 8px 2px rgba(150, 30, 20, 0.15);
+}
+
+/* Stack the Helminth badge on top of the Warframe's own icon (2026-09-21;
+   opacity made state-dependent the same day per feedback - 50% while not
+   yet subsumed, fully opaque once it has, replacing the original flat
+   20%) - a compositing detail layered on top of the dim/bright border
+   treatment, not a separate status indicator of its own. */
+.item-icon-stack {
+  position: relative;
+  width: 56px;
+  height: 56px;
+}
+
+.item-icon-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.item-card-helminth .item-icon-overlay {
+  opacity: 1;
+}
+
+.item-card-helminth-dim .item-icon-overlay {
+  opacity: 0.5;
+}
+
+/* Incarnon Genesis duplicate tile (2026-09-21, gradient border added the
+   same day per feedback). Uses the weapon's real Incarnon Genesis art
+   (item.incarnonIcon, resolved server-side) rather than the base weapon
+   icon - confirmed against the real wiki art, see itemNames.ts's
+   loadIncarnonIconPaths comment.
+
+   Gradient border via the "transparent border + two-layer background"
+   technique, not border-image - border-image ignores border-radius
+   (renders square corners), which would look wrong on this card's
+   rounded corners. The padding-box layer repaints the card's own
+   background color so the gradient only shows in the border ring. */
+.item-card-incarnon {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(135deg, var(--incarnon-cyan), var(--incarnon-teal), var(--incarnon-silver), var(--incarnon-ceramic))
+      border-box;
+}
+
+.item-card-incarnon-dim {
+  background:
+    linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--incarnon-cyan) 35%, transparent),
+        color-mix(in srgb, var(--incarnon-teal) 35%, transparent),
+        color-mix(in srgb, var(--incarnon-silver) 35%, transparent),
+        color-mix(in srgb, var(--incarnon-ceramic) 35%, transparent)
+      )
+      border-box;
+}
+
+.item-card-incarnon-dim .item-icon,
+.item-card-incarnon-dim .item-icon-placeholder,
+.item-card-incarnon-dim .item-name,
+.item-card-incarnon-dim .item-incarnon-tag {
+  opacity: 0.45;
+  filter: grayscale(0.9);
+}
+
+/* Cinzel for the weapon's own name on the Incarnon tile only (not the
+   "INCARNON" tag below it, and not the base ItemCard's name elsewhere in
+   the grid) - per the user's request. */
+.item-card-incarnon .item-name {
+  font-family: "Cinzel", serif;
+}
+
+.item-incarnon-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--incarnon-cyan);
+}
+
+/* Light blue/white hover glow, matching the Helminth tile's hover glow
+   (2026-09-21) - same tightened blur/alpha as that pass. */
+.item-card-incarnon:hover,
+.item-card-incarnon-dim:hover {
+  box-shadow:
+    0 0 5px 1px rgba(135, 206, 250, 0.2),
+    0 0 8px 2px rgba(255, 255, 255, 0.15);
+}
+
+/* Kuva Lich weapon-card theme (2026-09-21) - unlike the Helminth/
+   Incarnon tiles above, this recolors each real Kuva weapon's own card
+   in place rather than adding a duplicate (per the user's own answer -
+   Kuva weapons already have their own distinct identity, there's no
+   "not yet X" state a duplicate would represent). Same gradient-border
+   technique and "low-alpha border while unowned" dim convention as the
+   other two themes. */
+.item-card-kuva {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(
+        135deg,
+        var(--kuva-charcoal),
+        var(--kuva-slate),
+        var(--kuva-army-green),
+        var(--kuva-crimson),
+        var(--kuva-copper)
+      )
+      border-box;
+}
+
+.item-card-kuva-dim {
+  background:
+    linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--kuva-charcoal) 35%, transparent),
+        color-mix(in srgb, var(--kuva-slate) 35%, transparent),
+        color-mix(in srgb, var(--kuva-army-green) 35%, transparent),
+        color-mix(in srgb, var(--kuva-crimson) 35%, transparent),
+        color-mix(in srgb, var(--kuva-copper) 35%, transparent)
+      )
+      border-box;
+}
+
+.item-card-kuva-dim .item-icon,
+.item-card-kuva-dim .item-icon-placeholder,
+.item-card-kuva-dim .item-name {
+  opacity: 0.45;
+  filter: grayscale(0.9);
+}
+
+.item-card-kuva .item-name {
+  font-family: "Staatliches", sans-serif;
+  letter-spacing: 0.02em;
+}
+
+/* Hover glow in the described "default" red/orange energy color - see
+   this file's :root comment on why it can't reflect a real per-account
+   progenitor-Warframe energy color. */
+.item-card-kuva:hover,
+.item-card-kuva-dim:hover {
+  box-shadow:
+    0 0 5px 1px rgba(220, 60, 20, 0.25),
+    0 0 8px 2px rgba(255, 140, 40, 0.18);
+}
+
+/* Sisters of Parvos weapon-card theme (2026-09-21) - same rationale and
+   technique as the Kuva Lich theme above. */
+.item-card-sister {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(
+        135deg,
+        var(--sister-black),
+        var(--sister-navy),
+        var(--sister-white),
+        var(--sister-rosegold),
+        var(--sister-champagne)
+      )
+      border-box;
+}
+
+.item-card-sister-dim {
+  background:
+    linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--sister-black) 35%, transparent),
+        color-mix(in srgb, var(--sister-navy) 35%, transparent),
+        color-mix(in srgb, var(--sister-white) 35%, transparent),
+        color-mix(in srgb, var(--sister-rosegold) 35%, transparent),
+        color-mix(in srgb, var(--sister-champagne) 35%, transparent)
+      )
+      border-box;
+}
+
+.item-card-sister-dim .item-icon,
+.item-card-sister-dim .item-icon-placeholder,
+.item-card-sister-dim .item-name {
+  opacity: 0.45;
+  filter: grayscale(0.9);
+}
+
+/* Michroma's letterforms render noticeably larger than the other named
+   fonts at the same font-size (2026-09-21 feedback) - sized down from
+   the base 0.8rem to compensate. */
+.item-card-sister .item-name {
+  font-family: "Michroma", sans-serif;
+  font-size: 0.66rem;
+  line-height: 1.3;
+}
+
+.item-card-sister:hover,
+.item-card-sister-dim:hover {
+  box-shadow:
+    0 0 5px 1px rgba(0, 229, 255, 0.22),
+    0 0 8px 2px rgba(41, 121, 255, 0.16);
+}
+
+/* Prime theme (2026-09-21) - applies to every Prime item's own card
+   (Warframes AND weapons AND Archwing gear), not a duplicate - see
+   itemThemes.ts's isPrimeItem(). */
+.item-card-prime {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(135deg, var(--prime-beige), var(--prime-porcelain), var(--prime-gold), var(--prime-beige))
+      border-box;
+}
+
+/* Uses color-mix() (not hardcoded rgba literals, found 2026-09-22 while
+   debugging why editing --prime-beige didn't change unowned Prime cards)
+   so this variant stays in sync with the :root values automatically -
+   every other theme's -dim variant had the identical bug and was fixed
+   the same way the same day (see DEVLOG.md). */
+.item-card-prime-dim {
+  background:
+    linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--prime-beige) 35%, transparent),
+        color-mix(in srgb, var(--prime-porcelain) 35%, transparent),
+        color-mix(in srgb, var(--prime-gold) 35%, transparent),
+        color-mix(in srgb, var(--prime-beige) 35%, transparent)
+      )
+      border-box;
+}
+
+.item-card-prime-dim .item-icon,
+.item-card-prime-dim .item-icon-placeholder,
+.item-card-prime-dim .item-name {
+  opacity: 0.45;
+  filter: grayscale(0.9);
+}
+
+.item-card-prime .item-name {
+  font-family: "Cinzel Decorative", serif;
+  font-size: 0.72rem;
+}
+
+.item-card-prime:hover,
+.item-card-prime-dim:hover {
+  box-shadow:
+    0 0 5px 1px rgba(240, 223, 168, 0.25),
+    0 0 8px 2px rgba(168, 216, 240, 0.18);
+}
+
+/* Coda theme (2026-09-21, Infested "Techrot" strain). */
+.item-card-coda {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(
+        135deg,
+        var(--coda-pink),
+        var(--coda-magenta),
+        var(--coda-purple),
+        var(--coda-flesh),
+        var(--coda-accent-yellow)
+      )
+      border-box;
+}
+
+.item-card-coda-dim {
+  background:
+    linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--coda-pink) 35%, transparent),
+        color-mix(in srgb, var(--coda-magenta) 35%, transparent),
+        color-mix(in srgb, var(--coda-purple) 35%, transparent),
+        color-mix(in srgb, var(--coda-flesh) 35%, transparent),
+        color-mix(in srgb, var(--coda-accent-yellow) 35%, transparent)
+      )
+      border-box;
+}
+
+.item-card-coda-dim .item-icon,
+.item-card-coda-dim .item-icon-placeholder,
+.item-card-coda-dim .item-name {
+  opacity: 0.45;
+  filter: grayscale(0.9);
+}
+
+.item-card-coda .item-name {
+  font-family: "Rubik Glitch", cursive;
+  font-size: 0.7rem;
+}
+
+.item-card-coda:hover,
+.item-card-coda-dim:hover {
+  box-shadow:
+    0 0 5px 1px rgba(255, 20, 147, 0.28),
+    0 0 8px 2px rgba(177, 156, 217, 0.2);
+}
+
+/* Prisma theme (2026-09-21, Baro Ki'Teer/Void-forged). */
+.item-card-prisma {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(
+        135deg,
+        var(--prisma-indigo),
+        var(--prisma-midnight),
+        var(--prisma-violet),
+        var(--prisma-aquamarine),
+        var(--prisma-silver)
+      )
+      border-box;
+}
+
+.item-card-prisma-dim {
+  background:
+    linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--prisma-indigo) 35%, transparent),
+        color-mix(in srgb, var(--prisma-midnight) 35%, transparent),
+        color-mix(in srgb, var(--prisma-violet) 35%, transparent),
+        color-mix(in srgb, var(--prisma-aquamarine) 35%, transparent),
+        color-mix(in srgb, var(--prisma-silver) 35%, transparent)
+      )
+      border-box;
+}
+
+.item-card-prisma-dim .item-icon,
+.item-card-prisma-dim .item-icon-placeholder,
+.item-card-prisma-dim .item-name {
+  opacity: 0.45;
+  filter: grayscale(0.9);
+}
+
+.item-card-prisma .item-name {
+  font-family: "Exo 2", sans-serif;
+  font-weight: 700;
+}
+
+.item-card-prisma:hover,
+.item-card-prisma-dim:hover {
+  box-shadow:
+    0 0 5px 1px rgba(57, 255, 143, 0.22),
+    0 0 8px 2px rgba(245, 251, 255, 0.2);
+}
+
+/* Wraith theme (2026-09-21, Grineer death-squad variants) - a 2-color
+   body (no separate accent color was given), same gradient technique for
+   consistency with every other themed card. */
+.item-card-wraith {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(135deg, var(--wraith-blood), var(--wraith-steel)) border-box;
+}
+
+.item-card-wraith-dim {
+  background:
+    linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--wraith-blood) 35%, transparent),
+        color-mix(in srgb, var(--wraith-steel) 35%, transparent)
+      )
+      border-box;
+}
+
+.item-card-wraith-dim .item-icon,
+.item-card-wraith-dim .item-icon-placeholder,
+.item-card-wraith-dim .item-name {
+  opacity: 0.45;
+  filter: grayscale(0.9);
+}
+
+.item-card-wraith .item-name {
+  font-family: "Russo One", sans-serif;
+}
+
+.item-card-wraith:hover,
+.item-card-wraith-dim:hover {
+  box-shadow:
+    0 0 5px 1px rgba(255, 106, 0, 0.28),
+    0 0 8px 2px rgba(255, 34, 0, 0.2);
+}
+
+/* Vandal theme (2026-09-21, Corpus field-test variants) - a 2-color body
+   (no separate accent color was given), same gradient technique. */
+.item-card-vandal {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(135deg, var(--vandal-blue), var(--vandal-silver)) border-box;
+}
+
+.item-card-vandal-dim {
+  background:
+    linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--vandal-blue) 35%, transparent),
+        color-mix(in srgb, var(--vandal-silver) 35%, transparent)
+      )
+      border-box;
+}
+
+.item-card-vandal-dim .item-icon,
+.item-card-vandal-dim .item-icon-placeholder,
+.item-card-vandal-dim .item-name {
+  opacity: 0.45;
+  filter: grayscale(0.9);
+}
+
+.item-card-vandal .item-name {
+  font-family: "Share Tech", sans-serif;
+}
+
+.item-card-vandal:hover,
+.item-card-vandal-dim:hover {
+  box-shadow: 0 0 6px 2px rgba(57, 255, 20, 0.28);
+}
+
+/* Archwing default theme (2026-09-21) - see this file's :root comment on
+   isArchwingCategory() for why this palette/font is this app's own
+   choice, not a user-supplied spec. */
+.item-card-archwing {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(135deg, var(--archwing-void), var(--archwing-navy), var(--archwing-steel), var(--archwing-silverblue))
+      border-box;
+}
+
+.item-card-archwing-dim {
+  background:
+    linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--archwing-void) 35%, transparent),
+        color-mix(in srgb, var(--archwing-navy) 35%, transparent),
+        color-mix(in srgb, var(--archwing-steel) 35%, transparent),
+        color-mix(in srgb, var(--archwing-silverblue) 35%, transparent)
+      )
+      border-box;
+}
+
+.item-card-archwing-dim .item-icon,
+.item-card-archwing-dim .item-icon-placeholder,
+.item-card-archwing-dim .item-name {
+  opacity: 0.45;
+  filter: grayscale(0.9);
+}
+
+.item-card-archwing .item-name {
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.72rem;
+}
+
+.item-card-archwing:hover,
+.item-card-archwing-dim:hover {
+  box-shadow:
+    0 0 5px 1px rgba(77, 166, 255, 0.28),
+    0 0 8px 2px rgba(138, 92, 255, 0.2);
+}
+
+/* Normal (untitled) theme (2026-09-21) - a solid blue border, NOT a
+   gradient (explicit user request), replacing the plain --border gray
+   default for anything not matched by another theme above. */
+.item-card-normal {
+  border-color: var(--normal-blue);
+}
+
+/* Dims the border to match every other theme's -dim variant (2026-09-25
+   bug fix - this rule was missing entirely, so an unowned "normal" card
+   kept its full-brightness blue border while item-card-normal-dim above
+   only grayed out the icon/name, making the border the one part of the
+   card that never looked "unowned"). Same color-mix()-toward-transparent
+   technique and 35% figure as every other theme's -dim border (see
+   item-card-prime-dim's comment for why color-mix over a hardcoded rgba
+   literal), just applied to a plain border-color instead of a gradient
+   border-box since this theme has no gradient to begin with. */
+.item-card-normal-dim {
+  border-color: color-mix(in srgb, var(--normal-blue) 35%, transparent);
+}
+
+.item-card-normal:hover {
+  box-shadow: 0 0 6px 2px rgba(122, 184, 255, 0.35);
+}
+
+.item-icon {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+/* "Where do I get this" click target wrapping a plain Collection card's
+   icon (2026-09-25) - reset back to the icon's own exact footprint (no
+   default button padding/border, which would otherwise grow the click
+   target beyond the 56px icon and shift the card's layout) plus a
+   pointer cursor as the only affordance that it's clickable. */
+.item-icon-drop-sources-button {
+  display: block;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+/* Scroll container for a Collection card's "where do I get this" popup
+   table - see CollectionItemDropSourcesButton's own comment in App.tsx
+   for why this is a fixed px value, not the shared `.popup-window`'s own
+   vh-based max-height. */
+.drop-sources-popup-table-wrap {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* Bidirectional lazy loading (2026-09-22, App.tsx's useInView/
+   IconOrPlaceholder) - shown in place of the real icon until the card
+   scrolls within LAZY_ROOT_MARGIN of the viewport. Same fixed 56x56
+   footprint as the real icon, so a card's size never changes when it
+   swaps in - no layout shift, no jump as the grid scrolls. */
+.item-icon-skeleton {
+  background: linear-gradient(90deg, var(--panel-alt) 25%, var(--border) 50%, var(--panel-alt) 75%);
+  background-size: 200% 100%;
+  animation: item-icon-skeleton-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes item-icon-skeleton-pulse {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* Quick fade-in once the real icon/placeholder-letter replaces the
+   skeleton - avoids a hard pop-in as items scroll into view. */
+.item-icon-loaded {
+  animation: item-icon-fade-in 200ms ease-out;
+}
+
+@keyframes item-icon-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.item-icon-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.item-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  /* Fixed to the 2-line clamp's own worst-case height (0.8rem * 1.2 line-
+     height * 2 lines) rather than left to shrink for 1-line names - every
+     card's name block is now the same size, so it (and the always-
+     rendered .item-badge-row below it) share the same center point across
+     the whole grid instead of drifting per-card with name length/owned
+     state (2026-09-23, per user ask). */
+  height: 1.92rem;
+  width: 100%;
+}
+
+/* Corner overlay for the mastered badge (2026-09-22) - same absolute-
+   over-the-icon convention .item-owned-count already used, opposite
+   corner. Was also home to a Progenitor Element badge in the top-left
+   (.corner-badge-left, removed 2026-09-22 - see ItemCard in App.tsx for
+   why); .corner-badge stayed generic (not renamed to a "-right"-only
+   name) in case a real top-left use for this data shows up later, per
+   warframeElements.ts's header comment. That real use showed up
+   2026-09-25: .corner-badge-left is back for the Mastery Rank
+   requirement badge (see .mr-badge below). */
+.corner-badge {
+  position: absolute;
+  top: 0.35rem;
+  z-index: 1;
+}
+
+.corner-badge-right {
+  right: 0.4rem;
+}
+
+.corner-badge-left {
+  left: 0.4rem;
+}
+
+/* Mastery Rank requirement badge (top-left, 2026-09-25) - real per-rank
+   wiki icon (see statusIcons.ts's masteryRankIconFor comment) plus the
+   number, mirroring the mastered badge's icon size on the opposite
+   corner. Only rendered for items with a positive masteryReq (App.tsx) -
+   MR0/no-requirement items show nothing here, matching the real Arsenal. */
+.mr-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.05rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--panel-alt);
+  border-radius: 3px;
+  padding: 0.15rem 0.3rem;
+  line-height: 1;
+}
+
+.mr-badge-icon {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+}
+
+.mastered-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+}
+
+.mastered-badge-icon {
+  width: 15px;
+  height: 15px;
+  /* The source asset (IconMastered(xWhite).png) is already white-on-
+     transparent - shown as-is, no circle backdrop, per the user's
+     2026-09-23 steer away from the earlier --accent-circle treatment. */
+}
+
+.mastered-badge-icon-dim {
+  /* "Not yet mastered" reuses the same real icon at 50% opacity instead
+     of a separate dash glyph/circle - same asset, same shape, just
+     dimmed to read as "not yet" (2026-09-23). */
+  opacity: 0.5;
+}
+
+/* Row under the item name: Catalyst/Reactor + Exilus icons on the left,
+   rank centered, Forma icon+count on the right (per the user's spec -
+   rank stays centered regardless of what's on either side). A 3-column
+   grid (1fr / auto / 1fr), not the earlier equal-flex-grow row - two
+   `flex: 1` sides only grow to absorb LEFTOVER space equally, so their
+   different natural content widths (2 fixed icons on the left vs. a
+   variable Forma icon+count on the right, present or not) still pushed
+   the middle rank text off the row's true center, which itself didn't
+   match .item-name's center above it. The grid's middle column is sized
+   to the rank text itself and always sits at the row's true midpoint
+   regardless of what's in the outer columns (2026-09-23, per user ask).
+   Outer columns are `minmax(0, 1fr)`, not bare `1fr` - a bare `1fr`
+   track's implicit minimum is its own content's max-content width, so
+   the wider side (2 fixed icons) could still grow past its "equal share"
+   and steal space from the narrower side (Forma badge, or nothing at
+   all), re-breaking centering exactly the way the flex version did -
+   measured a real 6.5px center offset on "Acceltra" this way before the
+   `minmax(0, ...)` fix, confirmed gone after (2026-09-23 follow-up, per
+   the user reporting it still off at a maximized window - larger cards
+   made the same relative offset more visible in absolute pixels). */
+.item-badge-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  width: 100%;
+  /* 0.25rem read as too tight next to the 21px status icons - since the
+     outer tracks are equal-width (whichever side has more content forces
+     both), the icon side (usually the wider of the two) fills its whole
+     track edge-to-edge, so the old 4px grid gap was the ONLY breathing
+     room before the rank text. Bumped for clearer separation; still a
+     `gap` (not per-side margin), so it stays symmetric on the rank/Forma
+     side too (2026-09-23, per user ask - applies to every category since
+     this is the one shared .item-badge-row used by all of them). */
+  gap: 0.35rem;
+  /* Reserved even when empty (unowned items / no rank data) - matches
+     .item-status-icon's 16px so every card's row occupies the same space
+     whether or not it has anything to show (2026-09-23). */
+  min-height: 16px;
+}
+
+.item-badge-side {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.item-badge-side-right {
+  justify-content: flex-end;
+}
+
+.item-rank {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+/* Small fixed-size status icons (Catalyst/Reactor, Exilus, Forma) -
+   grayed out via item-status-icon-off when the feature isn't installed,
+   per the user's spec, rather than hidden entirely (so the slot's
+   presence/absence is always visible, not just when active). */
+.item-status-icon {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
+.item-status-icon-off {
+  opacity: 0.25;
+  filter: grayscale(1);
+}
+
+/* Manufacturing Requirements row (2026-09-24) - sits directly under
+   .item-badge-row, own reserved min-height for the same "every card in
+   the grid stays the same size" reason that row has one (most cards
+   will have nothing here - anything with no real Foundry Recipe - so
+   without a reserved height those cards would be shorter and break row
+   alignment against their buildable neighbors). */
+.item-manufacturing-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  width: 100%;
+  min-height: 18px;
+}
+
+.item-manufacturing-icon-wrap {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+}
+
+.item-manufacturing-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Per-part state, told apart by outline color (2026-09-24 per user spec)
+   rather than a dim/overlay treatment, so the real icon asset always
+   stays fully visible. outline (not border) so it doesn't eat into the
+   18px icon box and shift layout. */
+.item-manufacturing-icon-missing {
+  outline: 2px solid var(--danger);
+  outline-offset: 1px;
+  border-radius: 3px;
+}
+
+/* Blueprint owned, not yet built. */
+.item-manufacturing-icon-owned {
+  outline: 2px solid #fff;
+  outline-offset: 1px;
+  border-radius: 3px;
+}
+
+/* Built/ready to use (or, for the Blueprint slot, the whole item is
+   owned). Reuses --ok, the same "this is good/complete" green already
+   used for the Dashboard's sync-status dot - not a new color. */
+.item-manufacturing-icon-crafted {
+  outline: 2px solid var(--ok);
+  outline-offset: 1px;
+  border-radius: 3px;
+}
+
+/* Bottom-right (not top-right) since 2026-09-22 - .corner-badge-right
+   (mastered status) owns the top-right corner now, this stays clear of
+   it. */
+.item-owned-count {
+  position: absolute;
+  bottom: 0.35rem;
+  right: 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--panel-alt);
+  border-radius: 3px;
+  padding: 0.05rem 0.3rem;
+}
+
+/* Forma badge - confirmed against a real in-game sync 2026-09-21 (see
+   ../../DEVLOG.md's "Real in-game confirmation" entry), same accent
+   color as the rank/owned-count badges now that it's no longer flagged
+   as unverified. */
+.item-forma {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+
+/* Rank dots for owned, rankable mods (2026-09-22) - translates
+   rank/maxRank visually instead of plain "3/5" text, without otherwise
+   changing the card from the plain .item-card every other tab uses (see
+   ModCard's comment in App.tsx for why - an earlier full in-game-card-
+   chrome rebuild was scrapped as overkill/fragile). Sits as its own row
+   between the icon and the name - NOT an overlay on the icon (moved off
+   the icon the same day per feedback that it covered the mod art). */
+.mod-rank-dots {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+}
+
+.mod-rank-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.mod-rank-dot-filled {
+  background: var(--accent);
+}
+
+/* Mods tab card additions (2026-09-23; icon bumped 56x56 -> 100x100 and
+   subcategory reworked into tags below the type label per the user's
+   2026-09-23 follow-up). Owned-count/polarity are anchored to
+   .mod-icon-wrap, NOT .item-card directly - anchoring them to the card
+   put them at the card's top edge, overlapping content above the icon
+   (found via a real-browser check with synthetic owned data, fixed
+   before shipping). */
+.mod-icon-wrap {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+/* Overrides the shared .item-icon's fixed 56x56 (App.tsx's
+   IconOrPlaceholder, used by every Collection tab) - scoped to just
+   ModCard's wrapper so the other tabs' cards are untouched. Covers all
+   3 of IconOrPlaceholder's possible elements (real icon / skeleton /
+   placeholder letter), which all share the base .item-icon class. */
+.mod-icon-wrap .item-icon {
+  width: 100px;
+  height: 100px;
+}
+
+/* Arcane icons are transparent-background PNGs (unlike Mods' opaque
+   photographic card art, which fills its own square regardless), so the
+   shared .item-icon background removal (2026-09-25) left them floating
+   with nothing behind them - restored here, scoped to just ArcaneCard's
+   wrapper, per the user's ask to keep it off everywhere else. */
+.arcane-icon-wrap .item-icon {
+  background: var(--panel-alt);
+}
+
+.mod-owned-count {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--panel-alt);
+  border-radius: 3px;
+  padding: 0.02rem 0.3rem;
+  z-index: 1;
+  /* Deliberately overlaps the icon art (inset, not outset, positioning)
+     per the user's 2026-09-23 spec - not just touching its corner. */
+  opacity: 0.92;
+}
+
+.mod-polarity-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  z-index: 1;
+  background: var(--panel-alt);
+  border-radius: 3px;
+  padding: 0.02rem 0.3rem;
+  opacity: 0.92;
+}
+
+.mod-drain-cost {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.mod-polarity-icon {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+  /* Source icons are black-on-transparent ("xBlack" wiki variant) - this
+     app's theme is always dark (see this file's :root color-scheme),
+     so they're inverted to white here rather than shipping a second
+     icon variant. */
+  filter: invert(1);
+}
+
+.mod-rarity-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.mod-type-label {
+  font-size: 0.65rem;
+  color: var(--muted);
+}
+
+/* Subcategory tags (2026-09-23) - moved below .mod-type-label, one tag
+   per real wiki-scraped subcategory hit (was a single joined/truncated
+   text line above the icon before this pass). Font sized smaller than
+   .mod-type-label's 0.65rem per the user's spec. Wraps rather than
+   clipping - a mod in several subcategories shows all of them, since
+   dropping any would hide real data this app already has. */
+.mod-subcategory-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* Tight gap - each tag should hug its own text (2026-09-23, per the
+     user's "least horizontal space possible" ask), not spread out to
+     fill the card's width. */
+  gap: 0.15rem;
+}
+
+.mod-subcategory-tag {
+  font-size: 0.55rem;
+  color: var(--muted);
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  /* Minimal horizontal padding + no wrapping inside a single tag - the
+     " Mods" suffix is also stripped at render time (App.tsx's
+     shortSubcategoryLabel) since it's redundant on the Mods tab; between
+     the two, each tag is close to its text's own natural width. */
+  padding: 0.02rem 0.2rem;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+/* Relics (2026-09-24) - RelicCard uses the plain .item-card (like
+   ModCard/ArcaneCard) plus these additions: a corner vaulted badge,
+   click-anywhere-to-expand (cursor hint), and a per-refinement pip row
+   instead of a single rank/owned display, since a relic tracks 4
+   independent owned counts at once. */
+.item-card[role="button"] {
+  cursor: pointer;
+}
+
+.relic-vaulted-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  font-size: 0.55rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.02rem 0.25rem;
+}
+
+.relic-refinement-pips {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.relic-refinement-pip {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--muted);
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.02rem 0.25rem;
+}
+
+.relic-refinement-pip-owned {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Expanded reward contents (click-to-expand, per the user's spec) -
+   grid-column: 1 / -1 makes this a full-width sibling row within
+   RelicsGrid's .item-grid CSS grid, directly after its card, same
+   Fragment-per-item technique EquipmentGrid already uses for
+   Helminth/Incarnon duplicate tiles. */
+.relic-refinement-tabs {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Relic popup's own size - wide enough for the reward table's 3 columns
+   without wrapping item names, capped so it never exceeds a small
+   viewport. .popup-window below owns the shared chrome (header/border/
+   backdrop); this just tunes width for this one specific use. */
+.relic-popup {
+  width: min(520px, 90vw);
+}
+
+/* Generic reusable popup-window foundation (2026-09-24) - see
+   PopupWindow's own header comment in App.tsx for the interaction
+   design (backdrop click / Escape to close). `.popup-window`'s own
+   width is unset here - callers size themselves via className (see
+   .relic-popup above) so this stays a plain, unopinionated shell. */
+.popup-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.popup-window {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  max-width: 90vw;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.popup-window-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  flex: 0 0 auto;
+}
+
+.popup-window-title {
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+/* Relic popup title: real relic icon to the left of the name (2026-09-25),
+   noticeably smaller than the 56px grid icon since it's sitting inline
+   next to text, not standing alone in a card. */
+.popup-window-title-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.relic-popup-title-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+/* Reward table's Item cell: real reward icon to the left of the name
+   (2026-09-25) - small enough to sit inline within the existing compact
+   row height, unlike the popup title icon above. Rewards with no
+   resolved icon (see server/src/db.ts's resolveRewardIcon comment) just
+   show the name with no icon slot reserved, rather than a placeholder
+   box. */
+.relic-reward-item-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.relic-reward-item-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.popup-window-close {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 0.2rem;
+}
+
+.popup-window-close:hover {
+  color: var(--text);
+}
+
+.popup-window-body {
+  padding: 0.75rem;
+  overflow-y: auto;
+}
+
+/* Full-quality mod preview on hover (2026-09-22) - rendered via a React
+   portal to document.body, only while hovered (see ModCard in App.tsx),
+   NOT a plain CSS-:hover child of .item-card - a `filter`-carrying
+   ancestor (item-card-unowned's grayscale) creates a new containing
+   block for `position: fixed` descendants, which trapped an earlier
+   CSS-only version inside the small card's own box instead of the
+   viewport. Since React only mounts this while hovered, no display:none
+   toggle is needed - if it's in the DOM, it should be visible.
+   pointer-events: none so the popup itself can never become the
+   mouse-leave trigger for the card underneath it.
+
+   left/top come from App.tsx's modPreviewPosition() (cursor-anchored,
+   not centered) as an inline style - width/height here MUST match
+   MOD_PREVIEW_WIDTH/HEIGHT there, since that JS clamps against these
+   same dimensions to keep the popup on-screen. No backdrop (removed
+   2026-09-22 per feedback - the popup no longer dims the rest of the
+   app while open). */
+.mod-preview-popup {
+  display: flex;
+  position: fixed;
+  width: 300px;
+  height: 420px;
+  z-index: 50;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  animation: mod-preview-in 90ms ease-out;
+}
+
+/* Short, snappy entry only - no exit animation, since the popup is
+   removed from the DOM outright on mouseleave (React unmounts it
+   immediately) rather than fading out. */
+@keyframes mod-preview-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Fixed box, object-fit: contain (2026-09-22 per feedback: "keep every
+   image the same size") - every mod's preview occupies the identical
+   on-screen footprint regardless of that particular wiki image's own
+   native resolution/aspect ratio, letterboxing rather than stretching or
+   cropping when an image doesn't exactly match. */
+.mod-preview-popup img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+}

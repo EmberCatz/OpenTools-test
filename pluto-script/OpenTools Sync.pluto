@@ -1,0 +1,483 @@
+-- OpenTools Sync
+--
+-- The in-game half of OpenTools' data ingestion (see
+-- ../OpenTools/DEVLOG.md's "Data ingestion" entry for the full
+-- architecture writeup). OpenTools' server/ backend has no live game
+-- session, so it can't talk to SpaceNinjaServer directly - same
+-- constraint Market Sync.pluto already works around. This script holds
+-- the session (via owf_get_auth_query()) and POSTs a flattened snapshot
+-- to OpenTools' backend on a timer.
+--
+-- AUTOSTART THIS SCRIPT (Bootstrapper's autostart_scripts) - it does
+-- nothing without OpenTools' server/ running (`npm start` in
+-- ../OpenTools/server), but polling an unreachable backend is harmless
+-- (a failed pcall'd request every SYNC_INTERVAL_MS), same reasoning as
+-- Market Sync.pluto.
+--
+-- FIRST LIVE RUN CONFIRMED 2026-09-21: the underlying mechanism
+-- (GET /api/inventory.php with owf_get_auth_query() auth) ran
+-- end-to-end against a real game client - 5 consecutive "Connection
+-- Closed Prematurely" failures before a success, matching the
+-- already-documented ~27% flake rate (see
+-- reference_spaceninjaserver_inventoryphp memory), not a bug. That run's
+-- one-time raw-shape dump confirmed Suits/LongGuns/Pistols/Melee/
+-- Sentinels and QuestKeys' real field shapes (see ../OpenTools/DEVLOG.md's
+-- 2026-09-21 entry) - the parsing below now uses those confirmed shapes.
+-- The PARSING CODE ITSELF (extractEquipment/extractQuestKeys) has NOT
+-- been re-run live yet - needs one more in-game confirmation before
+-- being treated as proven, same bar as any other new parsing logic.
+--
+-- Scope, per ../OpenTools/DEVLOG.md's ingestion entries: only parses
+-- fields with an EXISTING confirmed shape in this project -
+--   - RawUpgrades/MiscItems/Recipes (flattened counts) and Upgrades
+--     (ranked mod/arcane instances) - same parse as Market Sync.pluto's
+--     flattenOwnedCounts()/extractRankedInstances(), copied here nearly
+--     verbatim rather than re-derived.
+--   - NodeIntrosCompleted (unlock flags, e.g. Steel Path) - confirmed
+--     shape (string array) from reference_spaceninjaserver_inventoryphp.
+--   - Suits/LongGuns/Pistols/Melee/Sentinels (owned warframes/weapons/
+--     sentinels) - confirmed live 2026-09-21: each entry has ItemType
+--     (identity path), ItemId.$oid (unique instance id, same wrapper
+--     shape as Upgrades' ItemId), XP. Configs[] (loadout/mod/skin/color
+--     data) exists but isn't parsed - out of scope for a basic
+--     ownership view.
+--   - SentinelWeapons (companion weapons) - ADDED 2026-09-21, UNATTESTED
+--     against this project's own inventory.php - no prior sync ever
+--     requested this category. Lead comes from a third-party live-
+--     Warframe app's source (WFHelper, other_software/WFHelper-2.1.0/),
+--     which parses it with the IDENTICAL {ItemType, ItemId, XP} shape as
+--     the 5 categories above - assumed to match here on that basis, not
+--     independently confirmed. If this category comes back empty/absent
+--     on the next live run despite the player owning companion weapons,
+--     that's the first thing to question (see ../OpenTools/DEVLOG.md's
+--     2026-09-21 "Leads from WFHelper's source" entry).
+--   - Polarized (Forma count) and Features (bitmask - Catalyst/Reactor
+--     is bit 1 DOUBLE_CAPACITY, Exilus adapter is bit 2 UTILITY_SLOT) -
+--     ADDED 2026-09-21 as unattested leads (WFHelper's source), then
+--     CONFIRMED the same day by reading this machine's own local
+--     SpaceNinjaServer checkout directly
+--     (C:\OpenWF\Tools\SpaceNinjaServer\SpaceNinjaServer-main\src\types\
+--     equipmentTypes.ts's IEquipmentDatabase interface and
+--     eEquipmentFeatures const) - both are real sibling fields to
+--     ItemType/XP on every equipment entry, not a guess. What's still
+--     NOT confirmed: whether a live inventory.php response actually
+--     shows non-zero values on a real Forma'd/Catalyst'd/Exilus'd item -
+--     the FIELD NAMES are confirmed, the ACTUAL VALUES this script reads
+--     from a real account haven't been eyeballed against known ground
+--     truth yet. Sent as 0 if absent.
+--   - InfestedFoundry.ConsumedSuits (Helminth-subsumed Warframes) -
+--     ADDED 2026-09-21, CONFIRMED by reading the local SpaceNinjaServer
+--     checkout's subsume handler directly
+--     (src/controllers/api/infestedFoundryController.ts, the "a" /
+--     subsume case): `consumedSuit.s = suit.ItemType` - so
+--     `ConsumedSuits[].s` is the exact same real ItemType path used
+--     everywhere else in this script, not a guess. Sent as a flat array
+--     of ItemType strings (`subsumedSuits`) - the backend only needs to
+--     know WHICH suits have ever been fed to Helminth, not the full
+--     entry (color config, etc.).
+--   - QuestKeys - confirmed live 2026-09-21: each entry has ItemType
+--     (quest identity), Completed (bool), Progress[], CompletionDate.
+--     Sent through mostly as-is (see extractQuestKeys below).
+--   - SpaceSuits/SpaceGuns/SpaceMelee/Hoverboards (Archwing frames/
+--     Arch-Guns/Arch-Melee/K-Drive parts) - ADDED 2026-09-21, field
+--     NAMES/SHAPE confirmed by reading this machine's own local
+--     SpaceNinjaServer checkout directly (src/types/inventoryTypes/
+--     inventoryTypes.ts's `equipmentKeys` const lists all 4 of these
+--     alongside Suits/LongGuns/Pistols/Melee/Sentinels/SentinelWeapons as
+--     the same kind of key), same confidence tier Polarized/Features
+--     started at before being confirmed - the FIELD NAMES are confirmed
+--     real SNS inventory keys sharing the exact same {ItemType, ItemId,
+--     XP, Polarized, Features} shape as every other equipment category
+--     above, but whether a live inventory.php response actually POPULATES
+--     them for this account is UNATTESTED - no prior sync ever requested
+--     these categories. If any of the four comes back empty/absent
+--     despite the player owning that gear, that's the first thing to
+--     question (see ../OpenTools/DEVLOG.md's 2026-09-21 "Archwing/K-Drive"
+--     entry).
+--   - PremiumCredits - individually confirmed as a real top-level
+--     inventory field (pluto-scripting-guide.md, the
+--     `inventory.PremiumCredits += delta` addCurrency note).
+--   - RegularCredits/FusionPoints/CrewShipFusionPoints/PrimeTokens -
+--     inferred by strong analogy to PremiumCredits (same addCurrency
+--     enum, same load-mutate-save pattern) but NOT individually read
+--     from a live inventory.php response - low risk if wrong (a bad
+--     field name just reads nil/0, obviously wrong against the real
+--     in-game balance, not a plausible-looking wrong value), but
+--     flagged here per house rules rather than presented as equally
+--     confirmed.
+--   - XPInfo (per-itemType XP that persists across a Forma reset - used
+--     for the "mastered" badge) - ADDED 2026-09-22, field NAME/SHAPE
+--     confirmed by reading the local SpaceNinjaServer checkout directly
+--     (src/types/inventoryTypes/inventoryTypes.ts's
+--     `XPInfo: ITypeXPItem[]` on IInventoryDatabaseDocument, where
+--     ITypeXPItem = {ItemType: string, XP: number}) - real sibling field
+--     to Suits/LongGuns/etc. at the top level of inventory.php's
+--     response, not a guess. UNATTESTED against a live inventory.php
+--     response (no prior sync ever requested it) - if the Mods/Category
+--     tab's mastered badge stays wrong/empty despite items being
+--     genuinely maxed in-game, this is the first thing to question.
+
+local { http, json } = require "pluto:*"
+
+local BACKEND_HOST = "127.0.0.1"
+local BACKEND_PORT = 7891 -- must match OpenTools/server's OPENTOOLS_PORT (default 7891)
+local SYNC_INTERVAL_MS = 30000 -- interval AFTER A SUCCESS - inventory.php is a heavy ~300KB call, same reasoning as Market Sync.pluto
+local RETRY_MS = 5000 -- interval AFTER A FAILURE - short, matching Market Sync.pluto's measured ~27% flake rate being quick/random, not a sustained outage
+
+local function backendUrl(path)
+    return "http://" .. BACKEND_HOST .. ":" .. tostring(BACKEND_PORT) .. path
+end
+
+-- Identical to Market Sync.pluto's snsUrl() - same auth mechanism, not
+-- re-derived.
+local function snsUrl(path, extraParams)
+    local url = "http://" .. owf_get_server_host() .. ":" .. owf_get_http_port() .. path .. "?" .. owf_get_auth_query()
+    if extraParams then
+        url = url .. "&" .. extraParams
+    end
+    return url
+end
+
+-- Same flattening Market Sync.pluto's flattenOwnedCounts() does, but
+-- also tags each item with its source category (OpenTools' schema wants
+-- that; Market Sync never needed it since it always knew the category
+-- from the order being processed).
+local function flattenItemCounts(inv)
+    local counts = {}
+    local function accumulate(list, category)
+        if not list then return end
+        for _, entry in list do
+            local key = entry.ItemType
+            if not counts[key] then
+                counts[key] = { category = category, count = 0 }
+            end
+            counts[key].count = counts[key].count + (entry.ItemCount or 0)
+        end
+    end
+    accumulate(inv.RawUpgrades, "RawUpgrades")
+    accumulate(inv.MiscItems, "MiscItems")
+    accumulate(inv.Recipes, "Recipes")
+    return counts
+end
+
+-- Identical logic to Market Sync.pluto's extractRankedInstances(), just
+-- reshaped to {itemType: {rank, oid}[]} (same shape, different
+-- variable name for clarity in this script).
+local function extractRankedUpgrades(inv)
+    local result = {}
+    if inv.Upgrades then
+        for _, entry in inv.Upgrades do
+            local oid = nil
+            if entry.ItemId then
+                oid = entry.ItemId["$oid"] or entry.ItemId["$id"]
+            end
+            if oid then
+                local rank = 0
+                if entry.UpgradeFingerprint then
+                    local decodeOk, fingerprint = pcall(json.decode, entry.UpgradeFingerprint)
+                    if decodeOk and fingerprint.lvl then
+                        rank = fingerprint.lvl
+                    end
+                end
+                if not result[entry.ItemType] then
+                    result[entry.ItemType] = {}
+                end
+                table.insert(result[entry.ItemType], { rank = rank, oid = oid })
+            end
+        end
+    end
+    return result
+end
+
+-- Only currencies confirmed (PremiumCredits) or strongly-inferred
+-- (the rest, see header comment) to be real top-level inventory fields.
+-- A missing field is simply omitted (not sent as 0) so the backend/UI
+-- can tell "never synced" apart from "genuinely zero".
+local CURRENCY_FIELDS = { "RegularCredits", "PremiumCredits", "FusionPoints", "CrewShipFusionPoints", "PrimeTokens" }
+local function extractCurrencies(inv)
+    local currencies = {}
+    for _, field in CURRENCY_FIELDS do
+        if inv[field] ~= nil then
+            currencies[field] = inv[field]
+        end
+    end
+    return currencies
+end
+
+-- Owned warframes/weapons/sentinels/companion weapons/Archwing gear/
+-- K-Drive parts - all 10 categories share the same shape (5 confirmed
+-- live 2026-09-21, SentinelWeapons and the 4 Archwing/K-Drive categories
+-- added on still-unattested leads - see header comment), so one loop
+-- handles all of them, keyed by oid (unique instance, not stackable like
+-- item counts). `polarized`/`features` are CONFIRMED fields (source-read
+-- from SpaceNinjaServer itself) - see header comment.
+local EQUIPMENT_CATEGORIES = {
+    "Suits", "LongGuns", "Pistols", "Melee", "Sentinels", "SentinelWeapons",
+    "SpaceSuits", "SpaceGuns", "SpaceMelee", "Hoverboards",
+}
+local function extractEquipment(inv)
+    local result = {}
+    for _, category in EQUIPMENT_CATEGORIES do
+        local list = inv[category]
+        if list then
+            for _, entry in list do
+                local oid = nil
+                if entry.ItemId then
+                    oid = entry.ItemId["$oid"] or entry.ItemId["$id"]
+                end
+                if oid then
+                    result[oid] = {
+                        itemType = entry.ItemType,
+                        category = category,
+                        xp = entry.XP or 0,
+                        polarized = entry.Polarized or 0,
+                        features = entry.Features or 0,
+                    }
+                end
+            end
+        end
+    end
+    return result
+end
+
+-- Flat array of ItemTypes ever fed to Helminth - see header comment for
+-- the source confirmation. inv.InfestedFoundry itself is absent for an
+-- account that's never opened the Helminth segment at all (not just "no
+-- suits consumed yet"), so this checks both levels rather than assuming
+-- InfestedFoundry always exists.
+local function extractSubsumedSuits(inv)
+    local result = {}
+    if inv.InfestedFoundry and inv.InfestedFoundry.ConsumedSuits then
+        for _, entry in inv.InfestedFoundry.ConsumedSuits do
+            if entry.s then
+                table.insert(result, entry.s)
+            end
+        end
+    end
+    return result
+end
+
+-- QuestKeys, keyed by the quest's own ItemType (confirmed live
+-- 2026-09-21 - see header comment). Sends the whole entry through as-is
+-- rather than picking specific fields, since the backend just stores it
+-- as an opaque JSON blob per quest_key (server/src/db.ts) - no feature
+-- needs individual fields parsed out yet.
+local function extractQuestKeys(inv)
+    local result = {}
+    if inv.QuestKeys then
+        for _, entry in inv.QuestKeys do
+            if entry.ItemType then
+                result[entry.ItemType] = entry
+            end
+        end
+    end
+    return result
+end
+
+-- Per-itemType XP that persists across a Forma reset - see header
+-- comment's XPInfo entry. This is a DIFFERENT number from
+-- extractEquipment's per-instance `xp` (which DOES reset on Forma) -
+-- the backend uses this one specifically to compute "has this item ever
+-- hit max rank," independent of its current post-Forma rank.
+local function extractMasteryXp(inv)
+    local result = {}
+    if inv.XPInfo then
+        for _, entry in inv.XPInfo do
+            if entry.ItemType then
+                result[entry.ItemType] = entry.XP or 0
+            end
+        end
+    end
+    return result
+end
+
+-- Returns (true) on success, or (false, reason) on failure - same
+-- true/false-for-retry reasoning as Market Sync.pluto's
+-- syncInventorySnapshot(), plus a reason string now (2026-09-25) so the
+-- caller can report it WITHOUT printing on every single failed attempt
+-- (see the main loop below - individual retries are silent now, only a
+-- prolonged streak gets logged, per the user's ask: "lets also not
+-- print every 5 second fail... after the test failed for a unreasonable
+-- long amount then it should fire that something might be off").
+local function syncSnapshot()
+    local ok, body, status = pcall(function()
+        return http.request(snsUrl("/api/inventory.php", "wsid=0"), {
+            method = "GET",
+            dont_reuse = true,
+            dont_make_reusable = true,
+        })
+    end)
+    if not (ok and status == 200) then
+        return false, "inventory fetch failed (status=" .. tostring(status) .. ")"
+    end
+
+    local decodeOk, inv = pcall(json.decode, body)
+    if not decodeOk then
+        return false, "inventory response failed to decode"
+    end
+
+    local snapshot = {
+        currencies = extractCurrencies(inv),
+        itemCounts = flattenItemCounts(inv),
+        rankedUpgrades = extractRankedUpgrades(inv),
+        unlocks = inv.NodeIntrosCompleted or {},
+        questKeys = extractQuestKeys(inv),
+        equipment = extractEquipment(inv),
+        subsumedSuits = extractSubsumedSuits(inv),
+        masteryXp = extractMasteryXp(inv),
+    }
+
+    -- FIXED 2026-09-21: this used to capture only (postOk, postErr) from
+    -- the pcall, but http.request() itself returns (body, status) as TWO
+    -- values - pcall prepends its own success boolean, so the real
+    -- shape is (pcallOk, requestBody, requestStatus), same as the
+    -- inventory.php fetch above. Only capturing 2 variables meant
+    -- `postErr` actually held the response BODY, and the real HTTP
+    -- status was silently dropped - so this reported "success" as long
+    -- as the network call didn't throw, even on a 400/500 from the
+    -- backend. Caught because a real 400 (see the unlocks/JSON-array
+    -- fix in server/src/routes.ts) was masked behind a printed "sent OK"
+    -- - exactly the class of bug the comment this replaced was warning
+    -- about, and still fell into it. Ironic; fixed by matching the
+    -- 3-variable pattern used everywhere else in this script.
+    local postOk, postBody, postStatus = pcall(function()
+        return http.request(backendUrl("/internal/inventory-snapshot"), {
+            method = "POST",
+            headers = { ["Content-Type"] = "application/json" },
+            body = json.encode(snapshot),
+            dont_reuse = true,
+            dont_make_reusable = true,
+        })
+    end)
+    if not (postOk and postStatus == 200) then
+        return false, "failed to report snapshot to backend (status=" .. tostring(postStatus) .. "): " .. tostring(postBody):sub(1, 200)
+    end
+
+    -- Added 2026-09-21: the script was previously silent on success,
+    -- which made "still retrying" indistinguishable from "succeeded a
+    -- while ago and is just quiet" when eyeballing script_log live.
+    local equipmentCount = 0
+    for _ in snapshot.equipment do
+        equipmentCount = equipmentCount + 1
+    end
+    print("OpenTools Sync: snapshot sent OK (" .. equipmentCount .. " equipment entries)")
+    return true
+end
+
+-- Skips syncing entirely while an actual mission is active (2026-09-25,
+-- performance ask). `http.request()` is confirmed synchronous/blocking
+-- (../../docs/pluto-scripting-guide.md's "Concurrent-write race" note),
+-- and this script's own header above documents inventory.php as a heavy
+-- ~300KB call with a confirmed ~27% flake rate (multi-second retries on
+-- failure) - doing that unconditionally every 30s risks a real stutter
+-- if it lands mid-combat, for data (collection/mastery progress) that
+-- doesn't need to be fresh while you're still inside the mission anyway.
+--
+-- REVISED 2026-09-25 after a same-day live bug report: the first version
+-- checked `IsNull(gGameRules)`, which was WRONG - the user confirmed it
+-- read "in mission" while standing in the orbiter (a false positive)
+-- and, as a direct consequence, never saw a real mission actually end
+-- either (once "always true", it just stayed paused). Root cause:
+-- `gGameRules` is apparently a real, non-null object in the orbiter too
+-- (and presumably relays/dojo) - it doesn't go null there, it's a
+-- DIFFERENT ENGINE CLASS. The correctly-scoped check, per
+-- ../../docs/pluto-scripting-guide.md §5.1's own description of
+-- `gGameRules` ("mission-active check") and §4.1's attested example
+-- (`Complete Wave or Mission.pluto`'s `gGameRules instanceof
+-- LotusGameRules`, a REAL one-shot script gating a real mission-only
+-- action on this exact check, not a guess by analogy) is `gGameRules
+-- instanceof LotusGameRules` - true only for an actual mission's game
+-- rules object, false for whatever class the hub/orbiter uses instead
+-- (a `gLotusHubGameRulesType` constant exists per the engine API stub,
+-- corroborating that hubs really do use a distinct class). The
+-- `IsNull()` guard is kept as a cheap first check for the brief window
+-- `gGameRules` can be genuinely unset during a region-load transition
+-- (per §4.4) - `instanceof` on a nil value is untested and better
+-- avoided.
+--
+-- One known, accepted side effect (per §4.1's own caveat): `instanceof
+-- LotusGameRules` also reads false in the Simulacrum (a different
+-- class), so this will treat Simulacrum time as "not in mission" and
+-- sync normally there - acceptable, since the Simulacrum is a synced-
+-- data-irrelevant weapon-testing space, not a real mission.
+--
+-- STILL NOT independently confirmed from here (no running game client
+-- to test against): that hubs OTHER than the orbiter (relays, dojo)
+-- also read as non-`LotusGameRules` rather than sharing some other
+-- mission-like class. If sync stays paused in a relay/dojo despite this
+-- fix, that's the next thing to check via script_log
+-- (http://localhost:6155/script_log) - watch for the "pausing"/
+-- "resuming" prints below actually flipping at the right moments.
+local MISSION_RECHECK_MS = 5000 -- how often to re-check for mission-end while paused
+
+local function isInActiveMission()
+    if IsNull(gGameRules) then
+        return false
+    end
+    return gGameRules instanceof LotusGameRules
+end
+
+-- Don't print on every single failed attempt anymore (2026-09-25, per
+-- the user's ask) - the script's own header already documents a
+-- confirmed ~27% flake rate on inventory.php, so a handful of retries in
+-- a row is NORMAL, not something worth logging every 5s. Instead, track
+-- how long the CURRENT unbroken failure streak has lasted and only print
+-- once it crosses PROLONGED_FAILURE_MS - at that point a transient flake
+-- stops being the likely explanation and something more real (backend
+-- down, network actually broken) becomes worth flagging. Fires once per
+-- streak (not repeatedly while still failing) - reset back to "can warn
+-- again" the moment a sync actually succeeds, which also prints a
+-- recovery line so a prior warning doesn't just silently vanish from the
+-- log with no resolution shown.
+local PROLONGED_FAILURE_MS = 60000
+local failureStreakStartedAt = nil
+local warnedThisStreak = false
+
+print("OpenTools Sync: started, syncing to " .. backendUrl("/internal/inventory-snapshot") .. " every " .. (SYNC_INTERVAL_MS / 1000) .. "s")
+
+local nextAttempt = 0 -- 0 forces an immediate first attempt
+local pausedForMission = false
+
+repeat
+    local now = os.millis()
+    if now >= nextAttempt then
+        if isInActiveMission() then
+            if not pausedForMission then
+                print("OpenTools Sync: active mission detected, pausing sync until it ends")
+                pausedForMission = true
+            end
+            nextAttempt = now + MISSION_RECHECK_MS
+        else
+            if pausedForMission then
+                print("OpenTools Sync: mission ended, resuming sync")
+                pausedForMission = false
+            end
+            local succeeded, failReason = syncSnapshot()
+            if succeeded then
+                if warnedThisStreak then
+                    print("OpenTools Sync: recovered, sync is working again")
+                end
+                failureStreakStartedAt = nil
+                warnedThisStreak = false
+                nextAttempt = now + SYNC_INTERVAL_MS
+            else
+                if not failureStreakStartedAt then
+                    failureStreakStartedAt = now
+                end
+                if not warnedThisStreak and (now - failureStreakStartedAt) >= PROLONGED_FAILURE_MS then
+                    print(
+                        "OpenTools Sync: still failing after "
+                            .. ((now - failureStreakStartedAt) / 1000)
+                            .. "s ("
+                            .. failReason
+                            .. ") - this may be a real problem, not just the usual flake"
+                    )
+                    warnedThisStreak = true
+                end
+                nextAttempt = now + RETRY_MS
+            end
+        end
+    end
+until yield()
+
+print("OpenTools Sync: stopped.")

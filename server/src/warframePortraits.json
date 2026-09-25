@@ -1,0 +1,470 @@
+{
+  "/Lotus/Powersuits/YinYang/YinYang": {
+    "nemesisUpgradeTag": "InnateRadDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Equinox.png/300px-Equinox.png?14fba"
+  },
+  "/Lotus/Powersuits/YinYang/EquinoxPrime": {
+    "nemesisUpgradeTag": "InnateRadDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/EquinoxPrime.png/300px-EquinoxPrime.png?771c3"
+  },
+  "/Lotus/Powersuits/Yareli/YareliPrime": {
+    "nemesisUpgradeTag": "InnateMagDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/YareliPrime.png/300px-YareliPrime.png?e20d3"
+  },
+  "/Lotus/Powersuits/Yareli/Yareli": {
+    "nemesisUpgradeTag": "InnateMagDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Yareli.png/300px-Yareli.png?92d0f"
+  },
+  "/Lotus/Powersuits/Wraith/Wraith": {
+    "nemesisUpgradeTag": "InnateImpactDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Sevagoth.png/300px-Sevagoth.png?8a152"
+  },
+  "/Lotus/Powersuits/Wraith/SevagothPrime": {
+    "nemesisUpgradeTag": "InnateImpactDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/SevagothPrime.png/300px-SevagothPrime.png?8a152"
+  },
+  "/Lotus/Powersuits/Wisp/WispPrime": {
+    "nemesisUpgradeTag": "InnateHeatDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/WispPrime.png/300px-WispPrime.png?c00d2"
+  },
+  "/Lotus/Powersuits/Wisp/Wisp": {
+    "nemesisUpgradeTag": "InnateHeatDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Wisp.png/300px-Wisp.png?badd3"
+  },
+  "/Lotus/Powersuits/Werewolf/Werewolf": {
+    "nemesisUpgradeTag": "InnateRadDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Voruna.png/300px-Voruna.png?6f895"
+  },
+  "/Lotus/Powersuits/Werewolf/VorunaPrime": {
+    "nemesisUpgradeTag": "InnateRadDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/VorunaPrime.png/300px-VorunaPrime.png?da4e5"
+  },
+  "/Lotus/Powersuits/Volt/VoltPrime": {
+    "nemesisUpgradeTag": "InnateElectricityDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/VoltPrime.png/300px-VoltPrime.png?968d9"
+  },
+  "/Lotus/Powersuits/Volt/Volt": {
+    "nemesisUpgradeTag": "InnateElectricityDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Volt.png/300px-Volt.png?92d0f"
+  },
+  "/Lotus/Powersuits/Trinity/TrinityPrime": {
+    "nemesisUpgradeTag": "InnateFreezeDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Trinity_Prime.png/300px-Trinity_Prime.png?f81ab"
+  },
+  "/Lotus/Powersuits/Trinity/Trinity": {
+    "nemesisUpgradeTag": "InnateFreezeDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Trinity.png/300px-Trinity.png?8a152"
+  },
+  "/Lotus/Powersuits/Trapper/TrapperPrime": {
+    "nemesisUpgradeTag": "InnateHeatDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/VaubanPrime.png/300px-VaubanPrime.png?34122"
+  },
+  "/Lotus/Powersuits/Trapper/Trapper": {
+    "nemesisUpgradeTag": "InnateHeatDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Vauban.png/300px-Vauban.png?34122"
+  },
+  "/Lotus/Powersuits/Tengu/ZephyrPrime": {
+    "nemesisUpgradeTag": "InnateImpactDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/ZephyrPrime.png/300px-ZephyrPrime.png?92d0f"
+  },
+  "/Lotus/Powersuits/Tengu/Tengu": {
+    "nemesisUpgradeTag": "InnateImpactDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Zephyr.png/300px-Zephyr.png?92d0f"
+  },
+  "/Lotus/Powersuits/Temple/Temple": {
+    "nemesisUpgradeTag": "InnateHeatDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Temple.png/300px-Temple.png?4f70f"
+  },
+  "/Lotus/Powersuits/SiriusOrion/SiriusSuit": {
+    "nemesisUpgradeTag": null,
+    "portraitImage": "https://wiki.warframe.com/images/thumb/SiriusOrion.png/300px-SiriusOrion.png?3a1d6"
+  },
+  "/Lotus/Powersuits/Sentient/Sentient": {
+    "nemesisUpgradeTag": "InnateElectricityDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Caliban.png/300px-Caliban.png?f7d72"
+  },
+  "/Lotus/Powersuits/Sentient/CalibanPrime": {
+    "nemesisUpgradeTag": "InnateElectricityDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/CalibanPrime.png/300px-CalibanPrime.png?771c3"
+  },
+  "/Lotus/Powersuits/Saryn/SarynPrime": {
+    "nemesisUpgradeTag": "InnateToxinDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/SarynPrime.png/300px-SarynPrime.png?8a152"
+  },
+  "/Lotus/Powersuits/Saryn/Saryn": {
+    "nemesisUpgradeTag": "InnateToxinDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Saryn.png/300px-Saryn.png?8a152"
+  },
+  "/Lotus/Powersuits/Sandman/Sandman": {
+    "nemesisUpgradeTag": "InnateHeatDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Inaros.png/300px-Inaros.png?d90dd"
+  },
+  "/Lotus/Powersuits/Sandman/InarosPrime": {
+    "nemesisUpgradeTag": "InnateHeatDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/InarosPrime.png/300px-InarosPrime.png?1413f"
+  },
+  "/Lotus/Powersuits/Runner/Runner": {
+    "nemesisUpgradeTag": "InnateImpactDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Gauss.png/300px-Gauss.png?d90dd"
+  },
+  "/Lotus/Powersuits/Runner/GaussPrime": {
+    "nemesisUpgradeTag": "InnateImpactDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/GaussPrime.png/300px-GaussPrime.png?1413f"
+  },
+  "/Lotus/Powersuits/Rhino/RhinoPrime": {
+    "nemesisUpgradeTag": "InnateImpactDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/RhinoPrime.png/300px-RhinoPrime.png?b308c"
+  },
+  "/Lotus/Powersuits/Rhino/Rhino": {
+    "nemesisUpgradeTag": "InnateImpactDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Rhino.png/300px-Rhino.png?b308c"
+  },
+  "/Lotus/Powersuits/Revenant/RevenantPrime": {
+    "nemesisUpgradeTag": "InnateFreezeDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/RevenantPrime.png/300px-RevenantPrime.png?9ca66"
+  },
+  "/Lotus/Powersuits/Revenant/Revenant": {
+    "nemesisUpgradeTag": "InnateFreezeDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Revenant.png/300px-Revenant.png?9ca66"
+  },
+  "/Lotus/Powersuits/Ranger/Ranger": {
+    "nemesisUpgradeTag": "InnateToxinDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Ivara.png/300px-Ivara.png?7167d"
+  },
+  "/Lotus/Powersuits/Ranger/IvaraPrime": {
+    "nemesisUpgradeTag": "InnateToxinDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/IvaraPrime.png/300px-IvaraPrime.png?1413f"
+  },
+  "/Lotus/Powersuits/Priest/Priest": {
+    "nemesisUpgradeTag": "InnateMagDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Harrow.png/300px-Harrow.png?42535"
+  },
+  "/Lotus/Powersuits/Priest/HarrowPrime": {
+    "nemesisUpgradeTag": "InnateMagDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/HarrowPrime.png/300px-HarrowPrime.png?badd3"
+  },
+  "/Lotus/Powersuits/Pirate/Pirate": {
+    "nemesisUpgradeTag": "InnateMagDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Hydroid.png/300px-Hydroid.png?1413f"
+  },
+  "/Lotus/Powersuits/Pirate/HydroidPrime": {
+    "nemesisUpgradeTag": "InnateMagDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/HydroidPrime.png/300px-HydroidPrime.png?1413f"
+  },
+  "/Lotus/Powersuits/PaxDuviricus/PaxDuviricus": {
+    "nemesisUpgradeTag": "InnateHeatDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Kullervo.png/300px-Kullervo.png?3ab48"
+  },
+  "/Lotus/Powersuits/Paladin/PaladinPrime": {
+    "nemesisUpgradeTag": "InnateToxinDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/OberonPrime.png/300px-OberonPrime.png?9ca66"
+  },
+  "/Lotus/Powersuits/Paladin/Paladin": {
+    "nemesisUpgradeTag": "InnateToxinDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Oberon.png/300px-Oberon.png?3e421"
+  },
+  "/Lotus/Powersuits/Pagemaster/Pagemaster": {
+    "nemesisUpgradeTag": "InnateImpactDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Dante.png/300px-Dante.png?771c3"
+  },
+  "/Lotus/Powersuits/Pacifist/Pacifist": {
+    "nemesisUpgradeTag": "InnateImpactDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Baruuk.png/300px-Baruuk.png?14fba"
+  },
+  "/Lotus/Powersuits/Pacifist/BaruukPrime": {
+    "nemesisUpgradeTag": "InnateImpactDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/BaruukPrime.png/300px-BaruukPrime.png?771c3"
+  },
+  "/Lotus/Powersuits/Oraxia/Oraxia": {
+    "nemesisUpgradeTag": "InnateToxinDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Oraxia.png/300px-Oraxia.png?b308c"
+  },
+  "/Lotus/Powersuits/Odalisk/ProteaPrime": {
+    "nemesisUpgradeTag": "InnateHeatDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/ProteaPrime.png/300px-ProteaPrime.png?9ca66"
+  },
+  "/Lotus/Powersuits/Odalisk/Odalisk": {
+    "nemesisUpgradeTag": "InnateHeatDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Protea.png/300px-Protea.png?b308c"
+  },
+  "/Lotus/Powersuits/Nokko/Nokko": {
+    "nemesisUpgradeTag": "InnateToxinDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Nokko.png/300px-Nokko.png?9ca66"
+  },
+  "/Lotus/Powersuits/Ninja/Ninja": {
+    "nemesisUpgradeTag": "InnateRadDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Ash.png/300px-Ash.png?f6126"
+  },
+  "/Lotus/Powersuits/Ninja/AshPrime": {
+    "nemesisUpgradeTag": "InnateRadDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/AshPrime.png/300px-AshPrime.png?f6126"
+  },
+  "/Lotus/Powersuits/Nezha/NezhaPrime": {
+    "nemesisUpgradeTag": "InnateHeatDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/NezhaPrime.png/300px-NezhaPrime.png?55b20"
+  },
+  "/Lotus/Powersuits/Nezha/Nezha": {
+    "nemesisUpgradeTag": "InnateHeatDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Nezha.png/300px-Nezha.png?55b20"
+  },
+  "/Lotus/Powersuits/Necro/NekrosPrime": {
+    "nemesisUpgradeTag": "InnateToxinDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/NekrosPrime.png/300px-NekrosPrime.png?55b20"
+  },
+  "/Lotus/Powersuits/Necro/Necro": {
+    "nemesisUpgradeTag": "InnateToxinDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Nekros.png/300px-Nekros.png?120a2"
+  },
+  "/Lotus/Powersuits/MonkeyKing/WukongPrime": {
+    "nemesisUpgradeTag": "InnateImpactDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/WukongPrime.png/300px-WukongPrime.png?92d0f"
+  },
+  "/Lotus/Powersuits/MonkeyKing/MonkeyKing": {
+    "nemesisUpgradeTag": "InnateImpactDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Wukong.png/300px-Wukong.png?92d0f"
+  },
+  "/Lotus/Powersuits/Magician/Magician": {
+    "nemesisUpgradeTag": "InnateElectricityDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Limbo.png/300px-Limbo.png?880f4"
+  },
+  "/Lotus/Powersuits/Magician/LimboPrime": {
+    "nemesisUpgradeTag": "InnateElectricityDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/LimboPrime.png/300px-LimboPrime.png?880f4"
+  },
+  "/Lotus/Powersuits/Mag/MagPrime": {
+    "nemesisUpgradeTag": "InnateMagDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/MagPrime.png/300px-MagPrime.png?55b20"
+  },
+  "/Lotus/Powersuits/Mag/Mag": {
+    "nemesisUpgradeTag": "InnateMagDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Mag.png/300px-Mag.png?55b20"
+  },
+  "/Lotus/Powersuits/Loki/LokiPrime": {
+    "nemesisUpgradeTag": "InnateRadDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/LokiPrime.png/300px-LokiPrime.png?3ab48"
+  },
+  "/Lotus/Powersuits/Loki/Loki": {
+    "nemesisUpgradeTag": "InnateRadDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Loki.png/300px-Loki.png?3ab48"
+  },
+  "/Lotus/Powersuits/Koumei/Koumei": {
+    "nemesisUpgradeTag": "InnateFreezeDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Koumei.png/300px-Koumei.png?606ef"
+  },
+  "/Lotus/Powersuits/Khora/KhoraPrime": {
+    "nemesisUpgradeTag": "InnateToxinDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/KhoraPrime.png/300px-KhoraPrime.png?3ab48"
+  },
+  "/Lotus/Powersuits/Khora/Khora": {
+    "nemesisUpgradeTag": "InnateToxinDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Khora.png/300px-Khora.png?3ab48"
+  },
+  "/Lotus/Powersuits/Jade/NyxPrime": {
+    "nemesisUpgradeTag": "InnateRadDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/NyxPrime.png/300px-NyxPrime.png?9ca66"
+  },
+  "/Lotus/Powersuits/Jade/Jade": {
+    "nemesisUpgradeTag": "InnateRadDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Nyx.png/300px-Nyx.png?3e421"
+  },
+  "/Lotus/Powersuits/IronFrame/IronFramePrime": {
+    "nemesisUpgradeTag": "InnateFreezeDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/HildrynPrime.png/300px-HildrynPrime.png?c52cb"
+  },
+  "/Lotus/Powersuits/IronFrame/IronFrame": {
+    "nemesisUpgradeTag": "InnateFreezeDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Hildryn.png/300px-Hildryn.png?1413f"
+  },
+  "/Lotus/Powersuits/Inkblot/Inkblot": {
+    "nemesisUpgradeTag": "InnateElectricityDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Follie.png/300px-Follie.png?da4e5"
+  },
+  "/Lotus/Powersuits/Infestation/InfestationPrime": {
+    "nemesisUpgradeTag": "InnateToxinDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/NidusPrime.png/300px-NidusPrime.png?55b20"
+  },
+  "/Lotus/Powersuits/Infestation/Infestation": {
+    "nemesisUpgradeTag": "InnateToxinDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Nidus.png/300px-Nidus.png?55b20"
+  },
+  "/Lotus/Powersuits/Hoplite/StyanaxPrime": {
+    "nemesisUpgradeTag": "InnateFreezeDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/StyanaxPrime.png/300px-StyanaxPrime.png?b2f2a"
+  },
+  "/Lotus/Powersuits/Hoplite/Hoplite": {
+    "nemesisUpgradeTag": "InnateFreezeDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Styanax.png/300px-Styanax.png?b2f2a"
+  },
+  "/Lotus/Powersuits/Harlequin/MiragePrime": {
+    "nemesisUpgradeTag": "InnateRadDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/MiragePrime.png/300px-MiragePrime.png?55b20"
+  },
+  "/Lotus/Powersuits/Harlequin/Harlequin": {
+    "nemesisUpgradeTag": "InnateRadDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Mirage.png/300px-Mirage.png?55b20"
+  },
+  "/Lotus/Powersuits/Gyre/GyrePrime": {
+    "nemesisUpgradeTag": "InnateElectricityDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/GyrePrime.png/300px-GyrePrime.png?f508c"
+  },
+  "/Lotus/Powersuits/Gyre/Gyre": {
+    "nemesisUpgradeTag": "InnateElectricityDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Gyre.png/300px-Gyre.png?c00d2"
+  },
+  "/Lotus/Powersuits/Glass/Glass": {
+    "nemesisUpgradeTag": "InnateFreezeDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Gara.png/300px-Gara.png?7167d"
+  },
+  "/Lotus/Powersuits/Glass/GaraPrime": {
+    "nemesisUpgradeTag": "InnateFreezeDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/GaraPrime.png/300px-GaraPrime.png?47cce"
+  },
+  "/Lotus/Powersuits/Geode/Geode": {
+    "nemesisUpgradeTag": "InnateMagDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Citrine.png/300px-Citrine.png?771c3"
+  },
+  "/Lotus/Powersuits/Garuda/GarudaPrime": {
+    "nemesisUpgradeTag": "InnateRadDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/GarudaPrime.png/300px-GarudaPrime.png?b2f2a"
+  },
+  "/Lotus/Powersuits/Garuda/Garuda": {
+    "nemesisUpgradeTag": "InnateRadDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Garuda.png/300px-Garuda.png?b2f2a"
+  },
+  "/Lotus/Powersuits/Frumentarius/Frumentarius": {
+    "nemesisUpgradeTag": "InnateMagDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Cyte09.png/300px-Cyte09.png?e282e"
+  },
+  "/Lotus/Powersuits/Frost/FrostPrime": {
+    "nemesisUpgradeTag": "InnateFreezeDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/FrostPrime.png/300px-FrostPrime.png?7167d"
+  },
+  "/Lotus/Powersuits/Frost/Frost": {
+    "nemesisUpgradeTag": "InnateFreezeDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Frost.png/300px-Frost.png?1413f"
+  },
+  "/Lotus/Powersuits/Fairy/TitaniaPrime": {
+    "nemesisUpgradeTag": "InnateFreezeDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/TitaniaPrime.png/300px-TitaniaPrime.png?8a152"
+  },
+  "/Lotus/Powersuits/Fairy/Fairy": {
+    "nemesisUpgradeTag": "InnateFreezeDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Titania.png/300px-Titania.png?8a152"
+  },
+  "/Lotus/Powersuits/Excalibur/ExcaliburUmbra": {
+    "nemesisUpgradeTag": "InnateElectricityDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/ExcaliburUmbra.png/300px-ExcaliburUmbra.png?4241f"
+  },
+  "/Lotus/Powersuits/Excalibur/ExcaliburPrime": {
+    "nemesisUpgradeTag": "InnateElectricityDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/ExcaliburPrime.png/300px-ExcaliburPrime.png?4241f"
+  },
+  "/Lotus/Powersuits/Excalibur/Excalibur": {
+    "nemesisUpgradeTag": "InnateElectricityDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Excalibur.png/300px-Excalibur.png?4241f"
+  },
+  "/Lotus/Powersuits/Ember/EmberPrime": {
+    "nemesisUpgradeTag": "InnateHeatDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/EmberPrime.png/300px-EmberPrime.png?14fba"
+  },
+  "/Lotus/Powersuits/Ember/Ember": {
+    "nemesisUpgradeTag": "InnateHeatDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Ember.png/300px-Ember.png?f7d72"
+  },
+  "/Lotus/Powersuits/Dragon/Dragon": {
+    "nemesisUpgradeTag": "InnateHeatDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Chroma.png/300px-Chroma.png?67761"
+  },
+  "/Lotus/Powersuits/Dragon/ChromaPrime": {
+    "nemesisUpgradeTag": "InnateHeatDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/ChromaPrime.png/300px-ChromaPrime.png?203ab"
+  },
+  "/Lotus/Powersuits/Devourer/GrendelPrime": {
+    "nemesisUpgradeTag": "InnateImpactDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/GrendelPrime.png/300px-GrendelPrime.png?1413f"
+  },
+  "/Lotus/Powersuits/Devourer/Devourer": {
+    "nemesisUpgradeTag": "InnateImpactDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Grendel.png/300px-Grendel.png?1413f"
+  },
+  "/Lotus/Powersuits/DemonFrame/DemonFrame": {
+    "nemesisUpgradeTag": "InnateHeatDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Uriel.png/300px-Uriel.png?1982c"
+  },
+  "/Lotus/Powersuits/Dagath/Dagath": {
+    "nemesisUpgradeTag": "InnateToxinDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Dagath.png/300px-Dagath.png?771c3"
+  },
+  "/Lotus/Powersuits/Cowgirl/MesaPrime": {
+    "nemesisUpgradeTag": "InnateMagDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/MesaPrime.png/300px-MesaPrime.png?55b20"
+  },
+  "/Lotus/Powersuits/Cowgirl/Cowgirl": {
+    "nemesisUpgradeTag": "InnateMagDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Mesa.png/300px-Mesa.png?120a2"
+  },
+  "/Lotus/Powersuits/ConcreteFrame/ConcreteFrame": {
+    "nemesisUpgradeTag": "InnateRadDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Qorvex.png/300px-Qorvex.png?9ca66"
+  },
+  "/Lotus/Powersuits/Choir/Choir": {
+    "nemesisUpgradeTag": "InnateHeatDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Jade.png/300px-Jade.png?606ef"
+  },
+  "/Lotus/Powersuits/BrokenFrame/XakuPrime": {
+    "nemesisUpgradeTag": "InnateMagDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/XakuPrime.png/300px-XakuPrime.png?92d0f"
+  },
+  "/Lotus/Powersuits/BrokenFrame/BrokenFrame": {
+    "nemesisUpgradeTag": "InnateMagDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Xaku.png/300px-Xaku.png?92d0f"
+  },
+  "/Lotus/Powersuits/Brawler/Brawler": {
+    "nemesisUpgradeTag": "InnateToxinDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Atlas.png/300px-Atlas.png?9295c"
+  },
+  "/Lotus/Powersuits/Brawler/AtlasPrime": {
+    "nemesisUpgradeTag": "InnateToxinDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/AtlasPrime.png/300px-AtlasPrime.png?65c15"
+  },
+  "/Lotus/Powersuits/Berserker/ValkyrPrime": {
+    "nemesisUpgradeTag": "InnateElectricityDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/ValkyrPrime.png/300px-ValkyrPrime.png?92d0f"
+  },
+  "/Lotus/Powersuits/Berserker/Berserker": {
+    "nemesisUpgradeTag": "InnateElectricityDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Valkyr.png/300px-Valkyr.png?92d0f"
+  },
+  "/Lotus/Powersuits/Bard/OctaviaPrime": {
+    "nemesisUpgradeTag": "InnateRadDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/OctaviaPrime.png/300px-OctaviaPrime.png?08cc2"
+  },
+  "/Lotus/Powersuits/Bard/Bard": {
+    "nemesisUpgradeTag": "InnateRadDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Octavia.png/300px-Octavia.png?b308c"
+  },
+  "/Lotus/Powersuits/Banshee/BansheePrime": {
+    "nemesisUpgradeTag": "InnateElectricityDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Banshee_Prime.png/300px-Banshee_Prime.png?7f705"
+  },
+  "/Lotus/Powersuits/Banshee/Banshee": {
+    "nemesisUpgradeTag": "InnateElectricityDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Banshee.png/300px-Banshee.png?14fba"
+  },
+  "/Lotus/Powersuits/AntiMatter/NovaPrime": {
+    "nemesisUpgradeTag": "InnateElectricityDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/NovaPrime.png/300px-NovaPrime.png?08cc2"
+  },
+  "/Lotus/Powersuits/AntiMatter/Anti": {
+    "nemesisUpgradeTag": "InnateElectricityDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Nova.png/300px-Nova.png?9ca66"
+  },
+  "/Lotus/Powersuits/Alchemist/LavosPrime": {
+    "nemesisUpgradeTag": "InnateMagDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/LavosPrime.png/300px-LavosPrime.png?606ef"
+  },
+  "/Lotus/Powersuits/Alchemist/Alchemist": {
+    "nemesisUpgradeTag": "InnateMagDamage",
+    "portraitImage": "https://wiki.warframe.com/images/thumb/Lavos.png/300px-Lavos.png?606ef"
+  }
+}
